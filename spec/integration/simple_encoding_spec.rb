@@ -1,7 +1,7 @@
 RSpec.describe "encoding a very simple message" do
   let(:schema) {
     ::Protobuffness::Schema.new([
-      ::Protobuffness::Field::String.new(:required, 1),
+      ::Protobuffness::Field::String.new(:required, :description, 1),
     ])
   }
   let(:values) { {:description => "crispy"} }
