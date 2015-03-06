@@ -1,28 +1,11 @@
 # Protobuffness
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/protobuffness`. To experiment with that code, run `bin/console` for an interactive prompt.
+This is an attempt to make a pure ruby implementation of protobuf serialization and de-serialization.
 
-TODO: Delete this and the text above, and describe your gem
+We borrow a lot from [Localshred's Protobuf](https://github.com/localshred/protobuf) implementation, with the main differences being:
 
-## Installation
-
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'protobuffness'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install protobuffness
-
-## Usage
-
-TODO: Write usage instructions here
+* De-couple the serialization logic from RPC logic
+* Generate complete classes during protobuf compilation rather than defining methods at runtime
 
 ## Development
 
