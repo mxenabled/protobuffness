@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/moneydesktop/protobuffness.svg?branch=master)](https://travis-ci.org/moneydesktop/protobuffness)
 [![Code Climate](https://codeclimate.com/github/moneydesktop/protobuffness/badges/gpa.svg)](https://codeclimate.com/github/moneydesktop/protobuffness)
+[![Test Coverage](https://codeclimate.com/github/moneydesktop/protobuffness/badges/coverage.svg)](https://codeclimate.com/github/moneydesktop/protobuffness)
 
 # Protobuffness
 
