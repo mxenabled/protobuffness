@@ -8,3 +8,7 @@ rvm:
   - jruby-head
 sudo: false
 cache: bundler
+env:
+  global:
+    - CODECLIMATE_REPO_TOKEN=ca72e4a3e0b0d78d03adf4e7faa5c3777b27e34b51e54c2ff55ecac1a2293f1f
+    - REPORT_COVERAGE=1
