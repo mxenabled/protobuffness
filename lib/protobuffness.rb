@@ -1,6 +1,8 @@
 require "protobuffness/version"
 require "protobuffness/schema"
+require "protobuffness/field/base"
 require "protobuffness/field/string"
+require "protobuffness/field/uint32"
 require "protobuffness/wire_type"
 
 module Protobuffness

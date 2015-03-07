@@ -1,14 +1,6 @@
 module Protobuffness
   module Field
-    class String
-      attr_reader :name, :order, :rule
-
-      def initialize(rule, name, order)
-        @rule = rule
-        @name = name
-        @order = order
-      end
-
+    class String < Base
       def prefix
         key = (order << 3) | WireType::LENGTH_DELIMITED
         Protobuffness.encode_varint(key)
