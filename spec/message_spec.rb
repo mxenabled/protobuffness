@@ -5,8 +5,35 @@ RSpec.describe "message encoding" do
   # }
   class Sally
     def initialize(attributes)
-      @attributes = attributes
+      @attributes = {}
+      attributes.each do |attribute, value|
+        public_send("#{attribute}=", value)
+      end
     end
+
+    ## Attributes
+
+    def age
+      @attributes[:age]
+    end
+
+    def age=(age)
+      raise ArgumentError, "age is not a number" unless age.respond_to?(:to_i)
+      raise ArgumentError, "age is too large" unless age.to_i <= 4_294_967_295
+      raise ArgumentError, "age cannot be negative" unless age.to_i >= 0
+      @attributes[:age] = age
+    end
+
+    def mood
+      @attributes[:mood]
+    end
+
+    def mood=(mood)
+      raise ArgumentError, "mood is not stringy" unless mood.respond_to?(:to_str)
+      @attributes[:mood] = mood
+    end
+
+    ## Encoding
 
     def encode
       stream = StringIO.new
