@@ -37,6 +37,7 @@ RSpec.describe "message encoding" do
 
     def encode
       stream = StringIO.new
+      stream.set_encoding(Encoding::BINARY)
       encode_to_stream(stream)
       stream.string
     end
