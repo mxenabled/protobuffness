@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+
+#$LOAD_PATH << ::File.expand_path("../../lib", __FILE__)
+#require "protobufness"
+
+request_bytes = STDIN.read
+request_bytes.force_encoding(Encoding::BINARY)
+File.open("tmp/compile_request.bin", "wb") do |fh|
+  fh.write(request_bytes)
+end
+puts request_bytes

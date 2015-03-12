@@ -15,6 +15,7 @@ RSpec.describe "compiling protobuf messages" do
 
   it "decodes the message into tags and values" do
     response = ::Protobuffness::Compiler.compile_and_eval(request_bytes)
+    binding.pry
     expect(defined?(Sally)).to eq true
     sally = Sally.new(:mood => "frustrated", :age => 2)
     expect(sally.age).to eq 2
