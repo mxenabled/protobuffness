@@ -1,0 +1,4 @@
+message Sally {
+  required string mood = 1;
+  optional uint32 age  = 2;
+}
