@@ -3,6 +3,8 @@ require 'protobuf'
 require 'protobuf/descriptors'
 require 'protobuf/code_generator'
 
+require "protobuffness/compiler/file"
+
 module Protobuffness
   class Compiler
     attr_reader :request
@@ -23,19 +25,8 @@ module Protobuffness
 
     def files_to_generate
       request.proto_file.map do |file_descriptor|
-        ::Google::Protobuf::Compiler::CodeGeneratorResponse::File.new(
-          :name => file_name(file_descriptor),
-          :content => generate_ruby(file_descriptor),
-        )
+        File.new(file_descriptor).file
       end
-    end
-
-    def file_name(file_descriptor)
-      file_descriptor.name.sub(".proto", ".pb.rb")
-    end
-
-    def generate_ruby(file_descriptor)
-      "class Sally; end"
     end
   end
 end
