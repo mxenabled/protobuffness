@@ -5,6 +5,14 @@ require 'protobuf/code_generator'
 
 require "protobuffness/compiler/file"
 
+# I don't mind monkeypatching here since this code will only be loading when compiling
+# protobuf messages. It will never be loaded during the normal runtime of an application.
+class Array
+  def indent(other_array)
+    self << other_array.map{|line| "  #{line}"}
+  end
+end
+
 module Protobuffness
   class Compiler
     attr_reader :request

@@ -23,7 +23,7 @@ module Protobuffness
       end
 
       def generate_ruby
-        messages.map(&:message_definition).flatten.join("\n")
+        messages.map(&:message_definition).flatten.join("\n") << "\n"
       end
 
       def messages

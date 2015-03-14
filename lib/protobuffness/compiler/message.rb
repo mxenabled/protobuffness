@@ -14,8 +14,9 @@ module Protobuffness
       private
 
       def compile
-        define_class do
-          define_initializer << define_attribute_methods
+        define_class do |lines|
+          lines.indent(define_initializer)
+          lines.indent(define_attribute_methods)
         end
       end
 
@@ -26,7 +27,9 @@ module Protobuffness
       end
 
       def define_class
-        ["class #{message_type.name}"] << yield << ["end"]
+        lines = ["class #{message_type.name}"]
+        yield(lines)
+        lines << ["end"]
       end
 
       def define_initializer
