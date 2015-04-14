@@ -19,6 +19,12 @@ RSpec.describe "compiling a simple message" do
     expect(sally.age).to eq 9
   end
 
+  it "generates an initializer which accepts a hash of values" do
+    sally = Sally.new(:mood => "been better", :age => 20)
+    expect(sally.age).to eq 20
+    expect(sally.mood).to eq "been better"
+  end
+
   it "generates an encode method" do
     sally = Sally.new
     sally.mood = "slightly better"

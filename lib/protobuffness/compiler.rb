@@ -9,7 +9,7 @@ require "protobuffness/compiler/file"
 # protobuf messages. It will never be loaded during the normal runtime of an application.
 class Array
   def indent(other_array)
-    self << other_array.map{|line| "  #{line}"}
+    self.concat(other_array.map{|line| "  #{line}"})
   end
 end
 

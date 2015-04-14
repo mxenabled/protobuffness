@@ -1,3 +1,6 @@
+require 'protobuffness/compiler/attribute_encoder'
+require 'protobuffness/compiler/setter'
+
 module Protobuffness
   class Compiler
     class Message
@@ -12,6 +15,10 @@ module Protobuffness
       end
 
       private
+
+      def attribute_encoders
+        message_type.field.map{|field| AttributeEncoder.new(field).lines}.flatten
+      end
 
       def compile
         define_class do |lines|
@@ -35,31 +42,31 @@ module Protobuffness
 
       def define_initializer
         [
-          "def initialize",
+          "def initialize(attributes = {})",
           "  @attributes = {}",
-          "end"
+          "  attributes.each do |attribute, value|",
+          '    send("#{attribute}=", value)',
+          "  end",
+          "end",
         ]
       end
 
       def define_methods_for(field)
-        [
+        lines = [
           "def #{field.name}",
           "  @attributes[:#{field.name}]",
           "end",
-          "",
-          "def #{field.name}=(#{field.name})",
-          "  @attributes[:#{field.name}] = #{field.name}",
-          "end",
         ]
+        lines.concat(Setter.define_for(field))
       end
 
       def define_encode_method
-        [
-          "def encode",
-          "  ::Protobuffness::String.encode_attribute(@attributes[:mood], 1)",
-          "  ::Protobuffness::Uint32.encode_attribute(@attributes[:age], 2)",
-          "end",
+        lines = [
+          "def encode(io = nil)",
+          "  io ||= ''.force_encoding(Encoding::BINARY)",
         ]
+        lines.indent(attribute_encoders)
+        lines << "end"
       end
     end
   end
