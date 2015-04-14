@@ -17,6 +17,7 @@ module Protobuffness
         define_class do |lines|
           lines.indent(define_initializer)
           lines.indent(define_attribute_methods)
+          lines.indent(define_encode_method)
         end
       end
 
@@ -48,6 +49,15 @@ module Protobuffness
           "",
           "def #{field.name}=(#{field.name})",
           "  @attributes[:#{field.name}] = #{field.name}",
+          "end",
+        ]
+      end
+
+      def define_encode_method
+        [
+          "def encode",
+          "  ::Protobuffness::String.encode_attribute(@attributes[:mood], 1)",
+          "  ::Protobuffness::Uint32.encode_attribute(@attributes[:age], 2)",
           "end",
         ]
       end

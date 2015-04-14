@@ -19,3 +19,7 @@ def compile(message_file_name)
   `protoc --plugin=./exe/protoc-gen-protobuffness --protobuffness_out=#{proto_load_path} -I #{proto_load_path} #{proto_path}`
   ruby_path
 end
+
+def binary_string(a_string)
+  a_string.force_encoding(Encoding::BINARY)
+end
