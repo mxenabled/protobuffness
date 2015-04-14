@@ -4,7 +4,7 @@ module Protobuffness
       def lines
         [
           "def #{field.name}=(#{field.name})",
-          "  @attributes[:#{field.name}] = #{type_name}.new(#{field.name})",
+          "  @attributes[:#{field.name}] = #{type_name}.lookup(#{field.name})",
           "end",
         ]
       end
