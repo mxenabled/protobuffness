@@ -1,4 +1,5 @@
 language: ruby
+before_install: gem install bundler --no-doc
 rvm:
   - 1.9
   - 2.0
