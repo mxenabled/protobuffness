@@ -48,9 +48,35 @@ RSpec.describe "message encoding" do
         stream << Protobuffness::Uint32.encode_attribute(@attributes[:age], 2)
       end
     end
+
+    ## Decoding
+
+    def self.decode(bytestring)
+      stream = StringIO.new(bytestring)
+      decode_from_stream(stream)
+    end
+
+    def self.decode_from_stream(stream)
+      sally = Sally.new({})
+      Protobuffness::Decoder.decode_each_field(stream) do |tag, value|
+        assign_field_to_message(tag, value, sally)
+      end
+      sally
+    end
+
+    def self.assign_field_to_message(tag, value, sally)
+      case tag
+      when 1
+        sally.mood = value
+      when 2
+        sally.age = value
+      else
+        # assign to unknown attributes
+      end
+    end
   end
 
-  it "enodes an ageless Sally message" do
+  it "encodes an ageless Sally message" do
     ageless = Sally.new(:mood => "happy")
     expect(ageless.encode).to eq binary_string("\n\x05happy")
   end
@@ -63,5 +89,23 @@ RSpec.describe "message encoding" do
   it "encodes an adult Sally message" do
     adult = Sally.new(:mood => "slightly better", :age => 28)
     expect(adult.encode).to eq binary_string("\n\x0Fslightly better\x10\x1C")
+  end
+
+  it "decodes an ageless Sally message" do
+    ageless = Sally.decode(binary_string("\n\x05happy"))
+    expect(ageless.age).to be_nil
+    expect(ageless.mood).to eq "happy"
+  end
+
+  it "decodes a tween Sally message" do
+    tween = Sally.decode(binary_string("\n\x04poor\x10\x0F"))
+    expect(tween.age).to eq 15
+    expect(tween.mood).to eq "poor"
+  end
+
+  it "decodes an adult Sally message" do
+    adult = Sally.decode(binary_string("\n\x0Fslightly better\x10\x1C"))
+    expect(adult.age).to eq 28
+    expect(adult.mood).to eq "slightly better"
   end
 end

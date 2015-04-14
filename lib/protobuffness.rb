@@ -1,4 +1,5 @@
 require "protobuffness/version"
+require "protobuffness/decoder"
 require "protobuffness/enum"
 require "protobuffness/string"
 require "protobuffness/uint32"
