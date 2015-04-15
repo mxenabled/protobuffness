@@ -31,4 +31,10 @@ RSpec.describe "compiling a simple message" do
     sally.age = 28
     expect(sally.encode).to eq(binary_string("\n\x0Fslightly better\x10\x1C"))
   end
+
+  it "generates a decode method" do
+    sally = Sally.decode(binary_string("\n\x0Fslightly better\x10\x1C"))
+    expect(sally.age).to eq 28
+    expect(sally.mood).to eq "slightly better"
+  end
 end

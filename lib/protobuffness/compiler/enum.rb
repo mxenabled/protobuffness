@@ -32,6 +32,14 @@ module Protobuffness
           "    @label = label",
           "    @tag = VALUES_BY_LABEL[label]",
           "  end",
+          "",
+          "  def ==(other)",
+          "    [label,tag] == [other.label, other.tag]",
+          "  end",
+          "",
+          "  def eql?(other)",
+          "    [self.class,label,tag] == [other.class, other.label, other.tag]",
+          "  end",
           "end",
         ])
       end

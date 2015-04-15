@@ -36,4 +36,16 @@ RSpec.describe "enum message encoding" do
   it "rejects fake values" do
     expect{ Bacon.new(:crunchiness => :WAT) }.to raise_error(ArgumentError)
   end
+
+  it "decodes a crunchy bacon" do
+    bacon = Bacon.decode binary_string("\b\xC8\x03\x10\x01")
+    expect(bacon.id).to eq 456
+    expect(bacon.crunchiness).to eq Crunchiness.new(:CRISPY)
+  end
+
+  it "encodes a cement bacon" do
+    bacon = Bacon.decode binary_string("\b\xD8\xC6\x01\x10\x02")
+    expect(bacon.id).to eq 25_432
+    expect(bacon.crunchiness).to eq Crunchiness.new(:CEMENT)
+  end
 end
