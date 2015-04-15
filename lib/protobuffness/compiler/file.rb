@@ -1,0 +1,47 @@
+require "protobuffness/compiler/enum"
+require "protobuffness/compiler/message"
+
+module Protobuffness
+  class Compiler
+    class File
+      attr_reader :file_descriptor
+
+      def initialize(file_descriptor)
+        @file_descriptor = file_descriptor
+      end
+
+      def file
+        ::Google::Protobuf::Compiler::CodeGeneratorResponse::File.new(
+          :name => file_name,
+          :content => generate_ruby,
+        )
+      end
+
+      private
+
+      def definitions
+        message_definitions.concat(enum_definitions)
+      end
+
+      def enum_definitions
+        file_descriptor.enum_type.map do |enum|
+          Enum.new(enum).definition
+        end
+      end
+
+      def file_name
+        file_descriptor.name.sub(".proto", ".pb.rb")
+      end
+
+      def generate_ruby
+        definitions.flatten.join("\n") << "\n"
+      end
+
+      def message_definitions
+        file_descriptor.message_type.map do |message_type|
+          Message.new(message_type).message_definition
+        end
+      end
+    end
+  end
+end

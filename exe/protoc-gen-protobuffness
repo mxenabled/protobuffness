@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH << ::File.expand_path("../../lib", __FILE__)
+require "protobuffness"
+require "protobuffness/compiler"
+
+STDIN.set_encoding(Encoding::BINARY, Encoding::BINARY)
+compiler = ::Protobuffness::Compiler.new(STDIN.read)
+print compiler.response_binary

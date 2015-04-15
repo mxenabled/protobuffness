@@ -1,0 +1,9 @@
+enum Crunchiness {
+  FATTY  = 0;
+  CRISPY = 1;
+  CEMENT = 2;
+}
+message Bacon {
+  required uint32 id = 1;
+  optional Crunchiness crunchiness = 2;
+}
